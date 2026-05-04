@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Search results</title>
+  </head>
+  <body>
+    <h1>Search results</h1>
+    <p>Showing results for:</p>
+    <p id="desc"></p>
+
+    <hr />
+    <a href="/">Back home</a>
+  </body>
+
+  <script>
+    window.onload = () => {
+      console.log("yeeeii");
+      const params = new URLSearchParams(location.search);
+      const query = params.get("query");
+      const desc = document.querySelector("#desc");
+        console.log(query)
+      desc.innerHTML = query;
+    };
+  </script>
+</html>
