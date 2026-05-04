@@ -43,7 +43,6 @@
         <tr>
           <th>Payload</th>
           <th>What it does</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -52,24 +51,20 @@
           <td>
             Fires immediately. Broken image triggers <code>onerror</code>.
           </td>
-          <td>Copy into the search box</td>
         </tr>
         <tr>
           <td><code>&lt;img src=x onerror=alert(document.cookie)&gt;</code></td>
           <td>Exposes session cookies — the real threat.</td>
-          <td>Copy into the search box</td>
         </tr>
         <tr>
           <td><code>&lt;svg onload=alert(1)&gt;</code></td>
           <td>SVG fires <code>onload</code> without any user interaction.</td>
-          <td>Copy into the search box</td>
         </tr>
         <tr>
           <td>
             <code>&lt;a href="javascript:alert(1)"&gt;click me&lt;/a&gt;</code>
           </td>
           <td>Requires a click. Classic <code>javascript:</code> URI.</td>
-          <td>Copy into the search box</td>
         </tr>
         <tr>
           <td>
@@ -83,7 +78,6 @@
             Simulates data exfiltration — makes a real HTTP request and surfaces
             the response. In a real attack this would be the attacker's server.
           </td>
-          <td>Copy into the search box</td>
         </tr>
         <tr>
           <td><code>&lt;script&gt;alert(1)&lt;/script&gt;</code></td>
@@ -91,7 +85,6 @@
             Does <strong>not</strong> work — browsers block scripts injected via
             <code>innerHTML</code>.
           </td>
-          <td>Copy into the search box</td>
         </tr>
       </tbody>
     </table>
